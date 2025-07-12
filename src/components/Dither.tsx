@@ -269,6 +269,7 @@ function DitheredWaves({
           vertexShader={waveVertexShader}
           fragmentShader={waveFragmentShader}
           uniforms={waveUniformsRef.current}
+          transparent={false}
         />
       </mesh>
 
@@ -312,24 +313,39 @@ export default function Dither({
   enableMouseInteraction = true,
   mouseRadius = 1,
 }: DitherProps) {
-  return (
-    <Canvas
-      className="w-full h-full relative"
-      camera={{ position: [0, 0, 6] }}
-      dpr={window.devicePixelRatio}
-      gl={{ antialias: true, preserveDrawingBuffer: true }}
-    >
-      <DitheredWaves
-        waveSpeed={waveSpeed}
-        waveFrequency={waveFrequency}
-        waveAmplitude={waveAmplitude}
-        waveColor={waveColor}
-        colorNum={colorNum}
-        pixelSize={pixelSize}
-        disableAnimation={disableAnimation}
-        enableMouseInteraction={enableMouseInteraction}
-        mouseRadius={mouseRadius}
+  try {
+    return (
+      <Canvas
+        className="w-full h-full relative"
+        camera={{ position: [0, 0, 6] }}
+        dpr={typeof window !== 'undefined' ? window.devicePixelRatio : 1}
+        gl={{ antialias: true, preserveDrawingBuffer: true }}
+        fallback={<div style={{ width: '100%', height: '100%', background: '#001100' }} />}
+      >
+        <DitheredWaves
+          waveSpeed={waveSpeed}
+          waveFrequency={waveFrequency}
+          waveAmplitude={waveAmplitude}
+          waveColor={waveColor}
+          colorNum={colorNum}
+          pixelSize={pixelSize}
+          disableAnimation={disableAnimation}
+          enableMouseInteraction={enableMouseInteraction}
+          mouseRadius={mouseRadius}
+        />
+      </Canvas>
+    );
+  } catch (error) {
+    console.error('Dither component failed to render:', error);
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(45deg, #001100, #002200)',
+          opacity: 0.8
+        }}
       />
-    </Canvas>
-  );
+    );
+  }
 }

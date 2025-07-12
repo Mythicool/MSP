@@ -10,6 +10,8 @@ import './App.css'
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
 
+  console.log('App component rendering, currentPage:', currentPage);
+
   const handleNavigate = (path: string) => {
     const page = path.replace('/', '') || 'home';
     setCurrentPage(page);
@@ -50,7 +52,7 @@ function App() {
       </div>
 
       {/* Terminal-styled Content Overlay */}
-      <div className="terminal-overlay">
+      <div className="terminal-overlay" style={{ minHeight: '100vh', zIndex: 10 }}>
         {renderCurrentPage()}
 
         {/* Navigation Footer */}
