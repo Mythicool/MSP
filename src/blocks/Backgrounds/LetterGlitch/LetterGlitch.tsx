@@ -1,5 +1,5 @@
 /*
-	Installed from https://reactbits.dev/ts/default/
+  Installed from https://reactbits.dev/ts/default/
 */
 
 import { useRef, useEffect } from "react";
@@ -261,7 +261,7 @@ const LetterGlitch = ({
     resizeCanvas();
     animate();
 
-    let resizeTimeout: NodeJS.Timeout;
+    let resizeTimeout: ReturnType<typeof setTimeout>;
 
     const handleResize = () => {
       clearTimeout(resizeTimeout);
