@@ -10,8 +10,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          three: ['three', '@react-three/fiber', '@react-three/postprocessing'],
-          postprocessing: ['postprocessing'],
+          three: ['three', '@react-three/fiber'],
+          postprocessing: ['postprocessing', '@react-three/postprocessing'],
         },
       },
     },
@@ -20,6 +20,7 @@ export default defineConfig({
   },
   // Optimize dependencies
   optimizeDeps: {
-    include: ['react', 'react-dom', 'three', '@react-three/fiber'],
+    include: ['react', 'react-dom', 'three', '@react-three/fiber', 'postprocessing', '@react-three/postprocessing'],
+    exclude: ['n8ao'],
   },
 })
